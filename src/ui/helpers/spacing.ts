@@ -23,10 +23,10 @@ const spacings: { [key in SpacingValue]: string } = {
   md: '16px',
   lg: '20px',
   xl: '24px',
-  xxl: '24px',
-  xxxl: '24px',
-  huge: '24px',
-  giga: '24px',
+  xxl: '28px',
+  xxxl: '36px',
+  huge: '48px',
+  giga: '60px',
 }
 
 export const spacing = (spacingValue: SpacingValue): string => {

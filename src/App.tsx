@@ -8,7 +8,7 @@ import * as S from './App.styles.ts'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 
 // COMPONENTS
-import { Header } from '@components'
+import { Header, List } from '@components'
 
 const queryClient = new QueryClient()
 
@@ -18,7 +18,7 @@ function App() {
       <QueryClientProvider client={queryClient}>
         <Header />
         <Routes>
-          <Route path='/' element={<>wait</>} />
+          <Route path='/' element={<List />} />
         </Routes>
       </QueryClientProvider>
     </S.Container>

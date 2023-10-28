@@ -7,11 +7,11 @@ export const Container = styled.header`
   display: flex;
   align-items: flex-end;
   height: 100px;
-  background-color: ${color('default-300')};
+  background-color: ${color('default-200')};
 `
 
 export const Title = styled.h1`
-  font-weight: 400;
+  font-weight: 200;
   font-size: ${fontSize('biggest')};
   margin: ${spacing('md')};
 `
