@@ -26,6 +26,7 @@ export const List = (): JSX.Element => {
 
   const handleNextPage = () => {
     navigate(`/${page + 1}`)
+    window.scrollTo(0, 0)
   }
 
   useEffect(() => {
