@@ -1,5 +1,5 @@
 import { render, screen } from '@testing-library/react'
-import { describe, it } from 'vitest'
+import { describe, expect, it } from 'vitest'
 
 // COMPONENTS
 import { Header } from './Header'
@@ -7,7 +7,7 @@ import { Header } from './Header'
 describe('Header component', () => {
   it('should render Header component', async () => {
     render(<Header />)
-    expect(await screen.getByText('Simple Gallery')).toBeInTheDocument()
+    expect(screen.getByText('Simple Gallery')).toBeInTheDocument()
   })
 
   it('should open a portfolio', async () => {
