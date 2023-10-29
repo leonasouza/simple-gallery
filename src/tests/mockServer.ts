@@ -1,7 +1,7 @@
 import { setupServer } from 'msw/node'
 
 // HANDLERS
-import { listHandlers } from '@components/List/List.test'
+import { listHandlers } from '@tests/handlers/list'
 
 const handlers = [...listHandlers]
 
