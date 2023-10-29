@@ -1,7 +1,7 @@
 # Simple Gallery
 
-Projeto pessoal consumindo uma api aberta (https://picsum.photos/)
-Possui testesh
+Projeto pessoal consumindo uma api aberta (https://picsum.photos/)<br/>
+Possui testes
 
 ## Ferramentas
 
