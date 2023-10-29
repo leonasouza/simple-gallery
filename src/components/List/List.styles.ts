@@ -19,3 +19,9 @@ export const List = styled.section`
   grid-template-columns: repeat(2, 1fr);
   gap: ${spacing('giga')};
 `
+
+export const Next = styled.div`
+  margin: ${spacing('xs')} auto;
+  font-size: ${fontSize('regular')};
+  cursor: pointer;
+`

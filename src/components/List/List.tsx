@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import { useLocation, useNavigate } from 'react-router-dom'
 
 // SERVICES
 import { useGetPhotosList } from '@services/photos.ts'
@@ -13,13 +14,18 @@ import { IPhoto } from '@types'
 import { Photo } from '@ui'
 
 export const List = (): JSX.Element => {
-  const [page, setPage] = useState<number>(1)
   const [photos, setPhotos] = useState<IPhoto[]>([])
 
-  const photosRequest = useGetPhotosList({ page })
+  const { pathname } = useLocation()
+  const navigate = useNavigate()
+
+  const pageFromUrl = pathname !== '/' ? pathname.replace('/', '') : '1'
+  const page = parseInt(pageFromUrl)
+
+  const photosRequest = useGetPhotosList({ page: page })
 
   const handleNextPage = () => {
-    setPage(page + 1)
+    navigate(`/${page + 1}`)
   }
 
   useEffect(() => {
@@ -44,7 +50,7 @@ export const List = (): JSX.Element => {
           <Photo key={photo.id} photo={photo} />
         ))}
       </S.List>
-      <span onClick={handleNextPage}>Next</span>
+      <S.Next onClick={handleNextPage}>More</S.Next>
     </S.Container>
   )
 }

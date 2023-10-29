@@ -16,5 +16,5 @@ export const Image = styled.img`
 export const Author = styled.p`
   text-align: center;
   font-size: ${fontSize('small')};
-  margin-top: ${spacing('xxs')};
+  margin-top: ${spacing('sm')};
 `
