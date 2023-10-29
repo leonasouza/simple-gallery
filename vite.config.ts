@@ -11,13 +11,13 @@ export default defineConfig({
       { find: '@components', replacement: '/src/components' },
       { find: '@containers', replacement: '/src/containers' },
       { find: '@services', replacement: '/src/services' },
+      { find: '@tests', replacement: '/src/tests' },
       { find: '@types', replacement: '/src/types' },
-      { find: '@utils', replacement: '/src/utils' },
     ],
   },
   test: {
     globals: true,
     environment: 'jsdom',
-    setupFiles: './setupTests.js',
+    setupFiles: './src/tests/setupTests.js',
   },
 })

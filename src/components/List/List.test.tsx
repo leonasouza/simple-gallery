@@ -1,12 +1,14 @@
-import { render, renderHook, screen, waitFor } from '@testing-library/react'
-import { describe, expect, it, vi } from 'vitest'
+import { render, screen } from '@testing-library/react'
+import { describe, expect, it } from 'vitest'
+import { HttpResponse, http } from 'msw'
 
 // COMPONENTS
 import { List } from './List'
 
 // UTILS
-import { wrapper } from '@utils/tests'
-import { useGetPhotosList } from '@services/photos'
+import { wrapper } from '@tests/utils'
+import { BASEURL } from '@services/api'
+import { mockServer } from '@tests/mockServer'
 
 const mockedList = [
   {
@@ -18,40 +20,52 @@ const mockedList = [
     download_url: 'https://picsum.photos/id/0/5000/3333',
   },
   {
-    id: '1',
-    author: 'Alejandro Escamilla',
-    width: 5000,
-    height: 3333,
-    url: 'https://unsplash.com/photos/LNRyGwIJr5c',
-    download_url: 'https://picsum.photos/id/1/5000/3333',
+    id: '10',
+    author: 'Paul Jarvis',
+    width: 2500,
+    height: 1667,
+    url: 'https://unsplash.com/photos/6J--NXulQCs',
+    download_url: 'https://picsum.photos/id/10/2500/1667',
   },
 ]
 
-describe('Header component', () => {
+export const listHandlers = [
+  http.get(`${BASEURL}/v2/list`, () => {
+    return HttpResponse.json(mockedList, {
+      status: 200,
+    })
+  }),
+]
+
+describe('List component', () => {
   it('should render the List component with loading state', () => {
     render(<List />, { wrapper })
-
-    vi.mock('useGetPhotosList', () => ({
-      useQuery: vi.fn().mockReturnValue({
-        data: {},
-        isLoading: true,
-      }),
-    }))
-
-    expect(screen.getByText('Loading...')).toBeInTheDocument()
-  })
-
-  it('should render List component', async () => {
-    render(<List />, { wrapper })
-
-    const { result } = renderHook(() => useGetPhotosList(), { wrapper })
-    await waitFor(() => expect(result.current.isSuccess).toBe(true))
 
     expect(
       screen.getByText(
         'Calm down. Breathe. Relax. Scroll slowly and enjoy the moment.'
       )
     ).toBeInTheDocument()
-    expect(screen.getAllByText(/Alejandro Escamilla/)[0]).toBeInTheDocument()
+
+    expect(screen.getByText('Loading...')).toBeInTheDocument()
+  })
+
+  it('should render List component with success state', async () => {
+    render(<List />, { wrapper })
+
+    expect(await screen.findByText('Alejandro Escamilla')).toBeInTheDocument()
+  })
+
+  it('should render List component with error state', async () => {
+    mockServer.use(
+      http.get(`${BASEURL}/v2/list`, () => {
+        return HttpResponse.json([], {
+          status: 500,
+        })
+      })
+    )
+    render(<List />, { wrapper })
+
+    expect(await screen.findByText(/Error/)).toBeInTheDocument()
   })
 })

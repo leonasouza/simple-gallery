@@ -7,15 +7,23 @@ import { IPhoto } from '@types'
 // API
 import { BASEURL } from '@services/api'
 
-export const getPhotosList = async (): Promise<IPhoto[]> => {
-  const { data } = await axios.get(`${BASEURL}/v2/list?page=1&limit=20`)
+interface RequestProps {
+  page: number
+}
+
+export const getPhotosList = async ({
+  page,
+}: RequestProps): Promise<IPhoto[]> => {
+  const { data } = await axios.get(`${BASEURL}/v2/list?page=${page}&limit=20`)
   return data
 }
 
-export const useGetPhotosList = (): UseQueryResult<IPhoto[]> => {
+export const useGetPhotosList = ({
+  page,
+}: RequestProps): UseQueryResult<IPhoto[]> => {
   return useQuery<IPhoto[]>({
     queryKey: ['GetAllPeople'],
-    queryFn: () => getPhotosList(),
+    queryFn: () => getPhotosList({ page }),
     refetchOnWindowFocus: false,
   })
 }

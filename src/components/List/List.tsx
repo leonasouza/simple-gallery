@@ -13,9 +13,18 @@ import { IPhoto } from '@types'
 import { Photo } from '@ui'
 
 export const List = (): JSX.Element => {
+  const [page, setPage] = useState<number>(1)
   const [photos, setPhotos] = useState<IPhoto[]>([])
 
-  const photosRequest = useGetPhotosList()
+  const photosRequest = useGetPhotosList({ page })
+
+  const handleNextPage = () => {
+    setPage(page + 1)
+  }
+
+  useEffect(() => {
+    photosRequest.refetch()
+  }, [page])
 
   useEffect(() => {
     if (photosRequest.data) {
@@ -29,11 +38,13 @@ export const List = (): JSX.Element => {
         Calm down. Breathe. Relax. Scroll slowly and enjoy the moment.
       </S.Title>
       {(photosRequest.isFetching || photosRequest.isLoading) && 'Loading...'}
+      {photosRequest.isError && 'Error loading data'}
       <S.List>
         {photos.map((photo) => (
           <Photo key={photo.id} photo={photo} />
         ))}
       </S.List>
+      <span onClick={handleNextPage}>Next</span>
     </S.Container>
   )
 }
