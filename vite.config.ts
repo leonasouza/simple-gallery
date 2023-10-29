@@ -12,6 +12,7 @@ export default defineConfig({
       { find: '@containers', replacement: '/src/containers' },
       { find: '@services', replacement: '/src/services' },
       { find: '@types', replacement: '/src/types' },
+      { find: '@utils', replacement: '/src/utils' },
     ],
   },
   test: {

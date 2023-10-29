@@ -8,6 +8,7 @@ export const Container = styled.header`
   align-items: flex-end;
   height: 100px;
   background-color: ${color('default-200')};
+  color: ${color('neutral-700')};
 `
 
 export const Title = styled.h1`

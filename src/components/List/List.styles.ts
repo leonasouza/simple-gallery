@@ -10,13 +10,12 @@ export const Container = styled.main`
 
 export const Title = styled.h2`
   font-weight: 300;
-  font-size: ${fontSize('large')};
+  font-size: ${fontSize('regular')};
   margin: ${spacing('xxl')} auto;
 `
 
 export const List = styled.section`
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  // flex-direction: column;
   gap: ${spacing('giga')};
 `

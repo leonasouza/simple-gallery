@@ -8,7 +8,9 @@ import * as S from './List.styles.ts'
 
 // TYPES
 import { IPhoto } from '@types'
-import { Photo } from '@ui/index.ts'
+
+// UI
+import { Photo } from '@ui'
 
 export const List = (): JSX.Element => {
   const [photos, setPhotos] = useState<IPhoto[]>([])
@@ -26,6 +28,7 @@ export const List = (): JSX.Element => {
       <S.Title>
         Calm down. Breathe. Relax. Scroll slowly and enjoy the moment.
       </S.Title>
+      {(photosRequest.isFetching || photosRequest.isLoading) && 'Loading...'}
       <S.List>
         {photos.map((photo) => (
           <Photo key={photo.id} photo={photo} />
