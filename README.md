@@ -1,7 +1,15 @@
 # Simple Gallery
 
-Projeto pessoal consumindo uma api aberta (https://picsum.photos/)<br/>
-Possui testes
+Front-end com testes consumindo uma api aberta (https://picsum.photos/).<br/>
+Projeto pessoal em construção.
+
+Atualização mais recente: 29/10/23
+
+## A fazer
+- Melhorar o componente `<Photo />`
+- Testes para o componente `<Photo />`
+- Melhorar o design geral
+- Organizar melhor os arquivos
 
 ## Ferramentas
 
