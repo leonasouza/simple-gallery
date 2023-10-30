@@ -8,6 +8,8 @@ Atualização mais recente: 29/10/23
 ## A fazer
 - Melhorar o componente `<Photo />`
 - Testes para o componente `<Photo />`
+- Exibição ampliada de imagens
+- Alterar a paginação para scroll infinito
 - Melhorar o design geral
 - Organizar melhor os arquivos
 
