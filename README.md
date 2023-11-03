@@ -17,7 +17,7 @@ Atualização mais recente: 29/10/23
 - vitest
 - msw
 
-### Como usar
+## Como usar
 
 - Clone o projeto
 - No terminal digite `npm i`
