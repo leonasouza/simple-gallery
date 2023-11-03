@@ -11,7 +11,7 @@ import { mockServer } from '@tests/mockServer'
 import { BASEURL } from '@services/api'
 
 // MOCKS
-import { mockedListPageOne, mockedListPageTwo } from '@tests/handlers/list'
+import { mockedListPageTwo } from '@tests/handlers/list'
 
 describe('List component', () => {
   it('should render the List component with loading state', () => {
