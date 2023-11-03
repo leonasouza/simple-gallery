@@ -31,7 +31,7 @@ export const List = (): JSX.Element => {
 
   useEffect(() => {
     photosRequest.refetch()
-  }, [page])
+  }, [page, photosRequest])
 
   useEffect(() => {
     if (photosRequest.data) {
