@@ -22,7 +22,9 @@ export const List = (): JSX.Element => {
   const pageFromUrl = pathname !== '/' ? pathname.replace('/', '') : '1'
   const page = parseInt(pageFromUrl)
 
-  const photosRequest = useGetPhotosList({ page: page })
+  const { data, isError, isFetching, refetch } = useGetPhotosList({
+    page: page,
+  })
 
   const handleNextPage = () => {
     navigate(`/${page + 1}`)
@@ -30,22 +32,22 @@ export const List = (): JSX.Element => {
   }
 
   useEffect(() => {
-    photosRequest.refetch()
-  }, [page, photosRequest])
+    refetch()
+  }, [page])
 
   useEffect(() => {
-    if (photosRequest.data) {
-      setPhotos(photosRequest.data)
+    if (data) {
+      setPhotos(data)
     }
-  }, [photosRequest.data])
+  }, [data])
 
   return (
     <S.Container>
       <S.Title>
         Calm down. Breathe. Relax. Scroll slowly and enjoy the moment.
       </S.Title>
-      {(photosRequest.isFetching || photosRequest.isLoading) && 'Loading...'}
-      {photosRequest.isError && 'Error loading data'}
+      {isFetching && 'Loading...'}
+      {isError && 'Error loading data'}
       <S.List>
         {photos.map((photo) => (
           <Photo key={photo.id} photo={photo} />
