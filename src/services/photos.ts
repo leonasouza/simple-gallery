@@ -28,7 +28,7 @@ export const useGetPhotosList = (): UseInfiniteQueryResult<
   InfiniteData<IPhoto[], unknown>,
   Error
 > => {
-  const PAGES_LIMIT = 50 // 1000 resultados na API
+  const PAGES_LIMIT = 50 // 1000 resultados na API, 20 resultados por página
 
   return useInfiniteQuery({
     queryKey: ['GetAllPhotos'],

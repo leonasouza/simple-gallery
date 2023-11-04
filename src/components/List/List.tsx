@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import React from 'react'
 
 // SERVICES
 import { useGetPhotosList } from '@services/photos.ts'
@@ -6,27 +6,16 @@ import { useGetPhotosList } from '@services/photos.ts'
 // STYLES
 import * as S from './List.styles.ts'
 
-// TYPES
-import { IPhoto } from '@types'
-
 // UI
 import { Photo } from '@ui'
 
 export const List = (): JSX.Element => {
-  const [photos, setPhotos] = useState<IPhoto[]>([])
-
   const { data, isError, isFetching, hasNextPage, fetchNextPage } =
     useGetPhotosList()
 
   const handleNextPage = () => {
     fetchNextPage()
   }
-
-  useEffect(() => {
-    if (data?.pages) {
-      setPhotos(data.pages.flatMap((photo) => photo))
-    }
-  }, [data])
 
   return (
     <S.Container>
@@ -38,8 +27,12 @@ export const List = (): JSX.Element => {
       {isError && 'Error loading data'}
 
       <S.List>
-        {photos.map((photo) => (
-          <Photo key={photo.id} photo={photo} />
+        {data?.pages.map((page, index) => (
+          <React.Fragment key={index}>
+            {page.map((photo) => (
+              <Photo key={photo.id} photo={photo} />
+            ))}
+          </React.Fragment>
         ))}
       </S.List>
 
