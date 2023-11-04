@@ -2,5 +2,7 @@
 import { IPhoto } from '@types'
 
 export interface PhotoProps {
-  photo: IPhoto
+  isShimmer?: boolean
+  photo?: IPhoto
+  ref: React.LegacyRef<HTMLImageElement> | undefined
 }

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useCallback } from 'react'
 
 // SERVICES
 import { useGetPhotosList } from '@services/photos.ts'
@@ -10,12 +10,32 @@ import * as S from './List.styles.ts'
 import { Photo } from '@ui'
 
 export const List = (): JSX.Element => {
-  const { data, isError, isFetching, hasNextPage, fetchNextPage } =
+  const { data, isError, isFetching, isFetchingNextPage, fetchNextPage } =
     useGetPhotosList()
 
   const handleNextPage = () => {
     fetchNextPage()
   }
+
+  const triggerRef = useCallback((trigger: HTMLDivElement) => {
+    if (trigger == null) return
+
+    const observer = new IntersectionObserver((entries) => {
+      if (entries[0].isIntersecting) {
+        handleNextPage()
+        observer.unobserve(trigger)
+      }
+    })
+
+    observer.observe(trigger)
+  }, [])
+
+  const Shimmers = (): JSX.Element => (
+    <S.ShimmersList>
+      <Photo isShimmer />
+      <Photo isShimmer />
+    </S.ShimmersList>
+  )
 
   return (
     <S.Container>
@@ -23,20 +43,24 @@ export const List = (): JSX.Element => {
         Calm down. Breathe. Relax. Scroll slowly and enjoy the moment.
       </S.Title>
 
-      {isFetching && 'Loading...'}
+      {isFetching && <Shimmers />}
       {isError && 'Error loading data'}
 
       <S.List>
-        {data?.pages.map((page, index) => (
-          <React.Fragment key={index}>
-            {page.map((photo) => (
-              <Photo key={photo.id} photo={photo} />
+        {data?.pages.map((page, pageIndex) => (
+          <React.Fragment key={pageIndex}>
+            {page.map((photo, photoIndex) => (
+              <Photo
+                key={photo.id}
+                photo={photo}
+                ref={photoIndex === page.length - 4 ? triggerRef : undefined}
+              />
             ))}
           </React.Fragment>
         ))}
       </S.List>
 
-      {hasNextPage && <S.Next onClick={handleNextPage}>More</S.Next>}
+      {isFetchingNextPage && <Shimmers />}
     </S.Container>
   )
 }

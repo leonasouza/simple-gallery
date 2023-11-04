@@ -14,6 +14,13 @@ export const Title = styled.h2`
   margin: ${spacing('xxl')} auto;
 `
 
+export const ShimmersList = styled.section`
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: ${spacing('giga')};
+  margin: ${spacing('xs')} 0;
+`
+
 export const List = styled.section`
   display: grid;
   grid-template-columns: repeat(2, 1fr);
