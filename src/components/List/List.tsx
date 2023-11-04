@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react'
-import { useLocation, useNavigate } from 'react-router-dom'
 
 // SERVICES
 import { useGetPhotosList } from '@services/photos.ts'
@@ -16,28 +15,16 @@ import { Photo } from '@ui'
 export const List = (): JSX.Element => {
   const [photos, setPhotos] = useState<IPhoto[]>([])
 
-  const { pathname } = useLocation()
-  const navigate = useNavigate()
-
-  const pageFromUrl = pathname !== '/' ? pathname.replace('/', '') : '1'
-  const page = parseInt(pageFromUrl)
-
-  const { data, isError, isFetching, refetch } = useGetPhotosList({
-    page: page,
-  })
+  const { data, isError, isFetching, hasNextPage, fetchNextPage } =
+    useGetPhotosList()
 
   const handleNextPage = () => {
-    navigate(`/${page + 1}`)
-    window.scrollTo(0, 0)
+    fetchNextPage()
   }
 
   useEffect(() => {
-    refetch()
-  }, [page])
-
-  useEffect(() => {
-    if (data) {
-      setPhotos(data)
+    if (data?.pages) {
+      setPhotos(data.pages.flatMap((photo) => photo))
     }
   }, [data])
 
@@ -46,14 +33,17 @@ export const List = (): JSX.Element => {
       <S.Title>
         Calm down. Breathe. Relax. Scroll slowly and enjoy the moment.
       </S.Title>
+
       {isFetching && 'Loading...'}
       {isError && 'Error loading data'}
+
       <S.List>
         {photos.map((photo) => (
           <Photo key={photo.id} photo={photo} />
         ))}
       </S.List>
-      <S.Next onClick={handleNextPage}>More</S.Next>
+
+      {hasNextPage && <S.Next onClick={handleNextPage}>More</S.Next>}
     </S.Container>
   )
 }

@@ -1,5 +1,9 @@
 import axios from 'axios'
-import { useQuery, UseQueryResult } from '@tanstack/react-query'
+import {
+  InfiniteData,
+  UseInfiniteQueryResult,
+  useInfiniteQuery,
+} from '@tanstack/react-query'
 
 // TYPES
 import { IPhoto } from '@types'
@@ -8,22 +12,31 @@ import { IPhoto } from '@types'
 import { BASEURL } from '@services/api'
 
 interface RequestProps {
-  page: number
+  pageParam: number
 }
 
 export const getPhotosList = async ({
-  page,
+  pageParam = 1,
 }: RequestProps): Promise<IPhoto[]> => {
-  const { data } = await axios.get(`${BASEURL}/v2/list?page=${page}&limit=20`)
+  const { data } = await axios.get(
+    `${BASEURL}/v2/list?page=${pageParam}&limit=20`
+  )
   return data
 }
 
-export const useGetPhotosList = ({
-  page,
-}: RequestProps): UseQueryResult<IPhoto[]> => {
-  return useQuery<IPhoto[]>({
-    queryKey: ['GetAllPeople'],
-    queryFn: () => getPhotosList({ page }),
+export const useGetPhotosList = (): UseInfiniteQueryResult<
+  InfiniteData<IPhoto[], unknown>,
+  Error
+> => {
+  const PAGES_LIMIT = 50 // 1000 resultados na API
+
+  return useInfiniteQuery({
+    queryKey: ['GetAllPhotos'],
+    queryFn: ({ pageParam }) => getPhotosList({ pageParam }),
+    initialPageParam: 1,
+    getNextPageParam: (_, allPages) => {
+      return allPages.length < PAGES_LIMIT ? allPages.length + 1 : undefined
+    },
     refetchOnWindowFocus: false,
   })
 }
