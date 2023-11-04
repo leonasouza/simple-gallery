@@ -29,8 +29,10 @@ export const List = styled.section`
   gap: ${spacing('giga')};
 `
 
-export const Next = styled.div`
-  margin: ${spacing('xs')} auto;
-  font-size: ${fontSize('regular')};
+export const Scroll = styled.div`
+  position: fixed;
+  bottom: 0;
+  right: 0;
   cursor: pointer;
+  z-index: 1;
 `

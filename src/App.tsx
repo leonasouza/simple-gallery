@@ -6,6 +6,7 @@ import * as S from './App.styles.ts'
 
 // STATE MANAGEMENT
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+import { OverlayContextProvider } from '@contexts/OverlayContext.tsx'
 
 // COMPONENTS
 import { Header, List } from '@components'
@@ -16,10 +17,12 @@ function App() {
   return (
     <S.Container>
       <QueryClientProvider client={queryClient}>
-        <Header />
-        <Routes>
-          <Route path='/' element={<List />} />
-        </Routes>
+        <OverlayContextProvider>
+          <Header />
+          <Routes>
+            <Route path='/' element={<List />} />
+          </Routes>
+        </OverlayContextProvider>
       </QueryClientProvider>
     </S.Container>
   )

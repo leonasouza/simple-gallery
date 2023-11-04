@@ -9,6 +9,7 @@ export const Container = styled.div`
   margin: 0;
   border: 1px solid ${color('neutral-200')};
   box-shadow: 0px 1px 10px ${color('neutral-300')};
+  cursor: pointer;
 `
 
 export const Image = styled.img`
