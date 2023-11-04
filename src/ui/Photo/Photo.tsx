@@ -13,8 +13,8 @@ const PhotoComponent = (
   if (isShimmer) {
     return (
       <S.Container>
-        <S.ShimmerImage />
-        <S.ShimmerAuthor />
+        <S.ShimmerImage data-testid='shimmerImage' />
+        <S.ShimmerAuthor data-testid='shimmerAuthor' />
       </S.Container>
     )
   }
