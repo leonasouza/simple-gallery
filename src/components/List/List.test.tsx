@@ -69,7 +69,6 @@ describe('List component', () => {
     result.current.fetchNextPage()
 
     await waitFor(() => {
-      console.log('ajuda deus', result.current.data?.pages)
       return expect(result.current.data?.pages).toStrictEqual([
         mockedListPageOne,
         mockedListPageTwo,
