@@ -1,14 +1,14 @@
 import styled, { css } from 'styled-components'
 
 // HELPERS
-import { fontSize, spacing } from '@ui/helpers'
+import { color, fontSize, spacing } from '@ui/helpers'
 
 export const Container = styled.div`
   display: flex;
   flex-direction: column;
   margin: 0;
-  border: 1px solid #eee;
-  box-shadow: 0px 1px 10px #ccc;
+  border: 1px solid ${color('neutral-200')};
+  box-shadow: 0px 1px 10px ${color('neutral-300')};
 `
 
 export const Image = styled.img`

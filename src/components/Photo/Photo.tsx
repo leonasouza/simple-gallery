@@ -4,7 +4,7 @@ import { forwardRef, LegacyRef } from 'react'
 import * as S from './Photo.styles.ts'
 
 // TYPES
-import { PhotoProps as Props } from './Photo.types'
+import { PhotoProps as Props } from './Photo.types.ts'
 
 const PhotoComponent = (
   { isShimmer, photo }: Props,

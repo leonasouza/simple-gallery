@@ -6,8 +6,8 @@ import { useGetPhotosList } from '@services/photos.ts'
 // STYLES
 import * as S from './List.styles.ts'
 
-// UI
-import { Photo } from '@ui'
+// COMPONENTS
+import { Photo } from '@components'
 
 export const List = (): JSX.Element => {
   const { data, isLoading, isFetchingNextPage, isError, fetchNextPage } =
