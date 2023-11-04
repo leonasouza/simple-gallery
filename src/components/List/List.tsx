@@ -31,7 +31,7 @@ export const List = (): JSX.Element => {
   }, [])
 
   const Shimmers = (): JSX.Element => (
-    <S.ShimmersList>
+    <S.ShimmersList data-testid='photoShimmer'>
       <Photo isShimmer />
       <Photo isShimmer />
     </S.ShimmersList>

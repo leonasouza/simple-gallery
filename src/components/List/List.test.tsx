@@ -23,7 +23,7 @@ describe('List component', () => {
       )
     ).toBeInTheDocument()
 
-    expect(screen.getByText('Loading...')).toBeInTheDocument()
+    expect(screen.getByTestId('photoShimmer')).toBeInTheDocument()
   })
 
   it('should render List component with error state', async () => {
