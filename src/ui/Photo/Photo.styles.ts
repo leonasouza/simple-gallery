@@ -7,6 +7,8 @@ export const Container = styled.div`
   display: flex;
   flex-direction: column;
   margin: 0;
+  border: 1px solid #eee;
+  box-shadow: 0px 1px 10px #ccc;
 `
 
 export const Image = styled.img`
@@ -16,7 +18,7 @@ export const Image = styled.img`
 export const Author = styled.p`
   text-align: center;
   font-size: ${fontSize('small')};
-  margin-top: ${spacing('sm')};
+  margin: ${spacing('sm')} 0;
 `
 
 // LOADING SHIMMERS
@@ -57,7 +59,8 @@ export const ShimmerImage = styled.div`
 `
 
 export const ShimmerAuthor = styled.div`
-  height: 20px;
-  margin-top: ${spacing('sm')};
+  height: 30px;
+  width: 50%;
+  margin: ${spacing('sm')} auto;
   ${ShimmerAnimation};
 `
