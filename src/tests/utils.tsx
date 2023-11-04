@@ -19,3 +19,7 @@ export const wrapper = ({ children }: { children: ReactNode }) => (
     <BrowserRouter>{children}</BrowserRouter>
   </QueryClientProvider>
 )
+
+export const intersectionObserverMock = () => ({
+  observe: () => null,
+})

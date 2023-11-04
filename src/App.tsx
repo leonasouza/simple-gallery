@@ -19,7 +19,6 @@ function App() {
         <Header />
         <Routes>
           <Route path='/' element={<List />} />
-          <Route path='/:page' element={<List />} />
         </Routes>
       </QueryClientProvider>
     </S.Container>

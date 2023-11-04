@@ -1,31 +1,27 @@
-import { fireEvent, render, screen } from '@testing-library/react'
-import { describe, expect, it } from 'vitest'
+import { render, renderHook, screen, waitFor } from '@testing-library/react'
+import { describe, expect, it, vi } from 'vitest'
 import { HttpResponse, http } from 'msw'
 
 // COMPONENTS
 import { List } from './List'
 
 // UTILS
-import { wrapper } from '@tests/utils'
+import { intersectionObserverMock, wrapper } from '@tests/utils'
 import { mockServer } from '@tests/mockServer'
 import { BASEURL } from '@services/api'
 
+// SERVICES
+import { useGetPhotosList } from '@services/photos'
+
 // MOCKS
-import { mockedListPageTwo } from '@tests/handlers/list'
+import { mockedListPageOne, mockedListPageTwo } from '@tests/handlers/list'
+
+// Creating a new IntersectionObserver mock
+window.IntersectionObserver = vi
+  .fn()
+  .mockImplementation(intersectionObserverMock)
 
 describe('List component', () => {
-  it('should render the List component with loading state', () => {
-    render(<List />, { wrapper })
-
-    expect(
-      screen.getByText(
-        'Calm down. Breathe. Relax. Scroll slowly and enjoy the moment.'
-      )
-    ).toBeInTheDocument()
-
-    expect(screen.getByText('Loading...')).toBeInTheDocument()
-  })
-
   it('should render List component with error state', async () => {
     mockServer.use(
       http.get(`${BASEURL}/v2/list`, () => {
@@ -34,24 +30,34 @@ describe('List component', () => {
         })
       })
     )
+
+    render(<List />, { wrapper })
+    expect(await screen.findByText(/Error/)).toBeInTheDocument()
+  })
+
+  it('should render the List component with loading state', () => {
     render(<List />, { wrapper })
 
-    expect(await screen.findByText(/Error/)).toBeInTheDocument()
+    expect(
+      screen.getByText(
+        'Calm down. Breathe. Relax. Scroll slowly and enjoy the moment.'
+      )
+    ).toBeInTheDocument()
+    expect(screen.getByTestId('photoShimmer')).toBeInTheDocument()
   })
 
   it('should render List component with success state', async () => {
     render(<List />, { wrapper })
-
     expect(await screen.findByText('Alejandro Escamilla')).toBeInTheDocument()
   })
 
-  it('should navigate to page 2', async () => {
+  it('should load second page', async () => {
     render(<List />, { wrapper })
-
     expect(await screen.findByText('Alejandro Escamilla')).toBeInTheDocument()
 
-    const moreButton = await screen.findByText('More')
-    fireEvent.click(moreButton)
+    const { result } = renderHook(() => useGetPhotosList(), { wrapper })
+    await waitFor(() => expect(result.current.isSuccess).toBe(true))
+    expect(result.current.data?.pages).toStrictEqual([mockedListPageOne])
 
     mockServer.use(
       http.get(`${BASEURL}/v2/list`, () => {
@@ -60,9 +66,14 @@ describe('List component', () => {
         })
       })
     )
+    result.current.fetchNextPage()
 
-    render(<List />, { wrapper })
-
+    await waitFor(() => {
+      return expect(result.current.data?.pages).toStrictEqual([
+        mockedListPageOne,
+        mockedListPageTwo,
+      ])
+    })
     expect(await screen.findByText('Aleks Dorohovich')).toBeInTheDocument()
   })
 })

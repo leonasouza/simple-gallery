@@ -1,5 +1,4 @@
-import { useEffect, useState } from 'react'
-import { useLocation, useNavigate } from 'react-router-dom'
+import React, { useCallback } from 'react'
 
 // SERVICES
 import { useGetPhotosList } from '@services/photos.ts'
@@ -7,51 +6,62 @@ import { useGetPhotosList } from '@services/photos.ts'
 // STYLES
 import * as S from './List.styles.ts'
 
-// TYPES
-import { IPhoto } from '@types'
-
 // UI
 import { Photo } from '@ui'
 
 export const List = (): JSX.Element => {
-  const [photos, setPhotos] = useState<IPhoto[]>([])
-
-  const { pathname } = useLocation()
-  const navigate = useNavigate()
-
-  const pageFromUrl = pathname !== '/' ? pathname.replace('/', '') : '1'
-  const page = parseInt(pageFromUrl)
-
-  const photosRequest = useGetPhotosList({ page: page })
+  const { data, isLoading, isFetchingNextPage, isError, fetchNextPage } =
+    useGetPhotosList()
 
   const handleNextPage = () => {
-    navigate(`/${page + 1}`)
-    window.scrollTo(0, 0)
+    fetchNextPage()
   }
 
-  useEffect(() => {
-    photosRequest.refetch()
-  }, [page, photosRequest])
+  const triggerRef = useCallback((trigger: HTMLDivElement) => {
+    if (trigger == null) return
 
-  useEffect(() => {
-    if (photosRequest.data) {
-      setPhotos(photosRequest.data)
-    }
-  }, [photosRequest.data])
+    const observer = new IntersectionObserver((entries) => {
+      if (entries[0].isIntersecting) {
+        handleNextPage()
+        observer.unobserve(trigger)
+      }
+    })
+
+    observer.observe(trigger)
+  }, [])
+
+  const Shimmers = (): JSX.Element => (
+    <S.ShimmersList data-testid='photoShimmer'>
+      <Photo isShimmer />
+      <Photo isShimmer />
+    </S.ShimmersList>
+  )
 
   return (
     <S.Container>
       <S.Title>
         Calm down. Breathe. Relax. Scroll slowly and enjoy the moment.
       </S.Title>
-      {(photosRequest.isFetching || photosRequest.isLoading) && 'Loading...'}
-      {photosRequest.isError && 'Error loading data'}
+
+      {isLoading && <Shimmers />}
+
+      {isError && 'Error loading data'}
+
       <S.List>
-        {photos.map((photo) => (
-          <Photo key={photo.id} photo={photo} />
+        {data?.pages.map((page, pageIndex) => (
+          <React.Fragment key={pageIndex}>
+            {page.map((photo, photoIndex) => (
+              <Photo
+                key={photo.id}
+                photo={photo}
+                ref={photoIndex === page.length - 4 ? triggerRef : undefined}
+              />
+            ))}
+          </React.Fragment>
         ))}
       </S.List>
-      <S.Next onClick={handleNextPage}>More</S.Next>
+
+      {isFetchingNextPage && <Shimmers />}
     </S.Container>
   )
 }
