@@ -18,7 +18,7 @@ export const Container = styled.div<ContainerProps>`
   top: ${({ position }) => (position === 'top' ? spacing('md') : 'auto')};
   bottom: ${({ position }) => (position === 'bottom' ? spacing('md') : 'auto')};
   right: ${spacing('md')};
-  background-color: ${color('neutral-400')};
+  background-color: ${color('default-400')};
   border-radius: ${spacing('giga')};
   cursor: pointer;
 
