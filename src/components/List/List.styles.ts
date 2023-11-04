@@ -19,11 +19,13 @@ export const ShimmersList = styled.section`
   grid-template-columns: repeat(2, 1fr);
   gap: ${spacing('giga')};
   margin: ${spacing('xs')} 0;
+  padding-bottom: ${spacing('md')};
 `
 
 export const List = styled.section`
   display: grid;
   grid-template-columns: repeat(2, 1fr);
+  align-items: center;
   gap: ${spacing('giga')};
 `
 
