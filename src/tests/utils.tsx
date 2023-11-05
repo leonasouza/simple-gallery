@@ -1,4 +1,4 @@
-import React, { ReactNode } from 'react'
+import { ReactNode } from 'react'
 
 // ROUTES
 import { BrowserRouter } from 'react-router-dom'
@@ -15,13 +15,20 @@ export const queryClient = new QueryClient({
   },
 })
 
-export const wrapper = ({ children }: { children: ReactNode }) => (
-  <QueryClientProvider client={queryClient}>
-    <OverlayContextProvider>
-      <BrowserRouter>{children}</BrowserRouter>
-    </OverlayContextProvider>
-  </QueryClientProvider>
-)
+export const wrapper = ({ children }: { children: ReactNode }) => {
+  // Creating a new IntersectionObserver mock
+  window.IntersectionObserver = vi
+    .fn()
+    .mockImplementation(intersectionObserverMock)
+
+  return (
+    <QueryClientProvider client={queryClient}>
+      <OverlayContextProvider>
+        <BrowserRouter>{children}</BrowserRouter>
+      </OverlayContextProvider>
+    </QueryClientProvider>
+  )
+}
 
 export const intersectionObserverMock = () => ({
   observe: () => null,

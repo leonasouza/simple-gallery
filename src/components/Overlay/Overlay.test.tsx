@@ -3,20 +3,15 @@ import { describe, expect, it } from 'vitest'
 
 // COMPONENTS
 import { Overlay } from './Overlay'
+import { List } from '@components'
 
 // UTILS
 import { mockedPhoto } from '@tests/handlers/photo'
-import { OverlayContextProvider } from '@contexts'
-
-const wrapper = ({ children }: { children: React.ReactNode }) => (
-  <OverlayContextProvider testPhoto={mockedPhoto}>
-    {children}
-  </OverlayContextProvider>
-)
+import { wrapper } from '@tests/utils'
 
 describe('Overlay component', () => {
   it('should render Overlay component with an image', async () => {
-    render(<Overlay />, { wrapper })
+    render(<Overlay testPhoto={mockedPhoto} />, { wrapper })
     const overlay = screen.getByTestId('overlay')
     const img = screen.getByRole('img')
 
@@ -25,11 +20,19 @@ describe('Overlay component', () => {
     expect(await screen.findByText('Alejandro Escamilla')).toBeInTheDocument()
   })
 
-  it('should close Overlay component that had an image', async () => {
-    render(<Overlay />, { wrapper })
-    const overlay = screen.getByTestId('overlay')
+  it('should render List component and open the overlay with an image', async () => {
+    render(<List />, { wrapper })
+    expect(await screen.findByText('Alejandro Escamilla')).toBeInTheDocument()
+    const author = screen.getByText('Alejandro Escamilla')
+    fireEvent.click(author)
 
+    const overlay = screen.getByTestId('overlay')
     expect(overlay).toBeVisible()
+    const img = screen.getAllByRole('img')
+    expect(img[0]).toHaveAttribute(
+      'src',
+      'https://picsum.photos/id/0/5000/3333'
+    )
     expect(screen.getByTestId('overlay:closeButton')).toBeInTheDocument()
 
     const closeButton = screen.getByTestId('overlay:closeButton')

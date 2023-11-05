@@ -1,12 +1,12 @@
 import { render, renderHook, screen, waitFor } from '@testing-library/react'
-import { describe, expect, it, vi } from 'vitest'
+import { describe, expect, it } from 'vitest'
 import { HttpResponse, http } from 'msw'
 
 // COMPONENTS
 import { List } from './List'
 
 // UTILS
-import { intersectionObserverMock, wrapper } from '@tests/utils'
+import { wrapper } from '@tests/utils'
 import { mockServer } from '@tests/mockServer'
 import { BASEURL } from '@services/api'
 
@@ -15,11 +15,6 @@ import { useGetPhotosList } from '@services/photos'
 
 // MOCKS
 import { mockedListPageOne, mockedListPageTwo } from '@tests/handlers/list'
-
-// Creating a new IntersectionObserver mock
-window.IntersectionObserver = vi
-  .fn()
-  .mockImplementation(intersectionObserverMock)
 
 describe('List component', () => {
   it('should render List component with error state', async () => {
