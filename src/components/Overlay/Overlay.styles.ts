@@ -15,20 +15,28 @@ export const Container = styled.div`
   align-items: center;
   background-color: ${color('default-300')};
   z-index: 2;
-
-  @media (max-width: 850px) {
-    padding-top: ${spacing('giga')};
-  }
 `
 
 export const Image = styled.img`
   margin-top: ${spacing('xl')};
   max-width: 90%;
   max-height: 90%;
+
+  @media (max-width: 850px) {
+    margin-top: auto;
+    max-width: 100%;
+    max-height: 100%;
+  }
 `
 
 export const Author = styled.p`
   text-align: center;
   font-size: ${fontSize('large')};
+  font-style: italic;
+  font-weight: 300;
   margin: auto 0;
+
+  @media (max-width: 850px) {
+    margin: 16px 0 auto 0;
+  }
 `
