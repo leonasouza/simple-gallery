@@ -7,11 +7,21 @@ interface Props {
   children: React.ReactNode
   handleClick: () => void
   position?: FloaterPosition
+  testId?: string
 }
 
-export const Floater = ({ children, handleClick, position = 'top' }: Props) => {
+export const Floater = ({
+  children,
+  handleClick,
+  position = 'top',
+  testId,
+}: Props) => {
   return (
-    <S.Container position={position} onClick={() => handleClick()}>
+    <S.Container
+      position={position}
+      onClick={() => handleClick()}
+      data-testid={testId || ''}
+    >
       {children}
     </S.Container>
   )

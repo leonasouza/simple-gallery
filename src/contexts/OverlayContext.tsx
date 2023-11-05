@@ -10,12 +10,15 @@ interface Data {
 
 interface Props {
   children: React.ReactNode
+  testPhoto?: IPhoto
 }
 
 const OverlayContext = createContext({} as Data)
 
-const OverlayContextProvider = ({ children }: Props) => {
-  const [selectedPhoto, setSelectedPhoto] = useState<IPhoto | null>(null)
+const OverlayContextProvider = ({ children, testPhoto }: Props) => {
+  const [selectedPhoto, setSelectedPhoto] = useState<IPhoto | null>(
+    testPhoto || null
+  )
 
   return (
     <OverlayContext.Provider

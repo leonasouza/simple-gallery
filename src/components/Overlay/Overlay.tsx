@@ -4,31 +4,28 @@ import * as S from './Overlay.styles.ts'
 // CONTEXTS
 import { useOverlayContext } from '@contexts/OverlayContext.tsx'
 
-// TYPES
-import { PhotoProps as Props } from './Overlay.types.ts'
-
 // ASSETS
 import CloseIcon from '@assets/icons/close.svg?react'
 
 // UI
 import { Floater } from '@ui/Floater/index.ts'
 
-export const Overlay = ({ photo }: Props): JSX.Element => {
-  const { setSelectedPhoto } = useOverlayContext()
+export const Overlay = (): JSX.Element => {
+  const { selectedPhoto, setSelectedPhoto } = useOverlayContext()
 
   const handleClose = () => {
     setSelectedPhoto(null)
   }
 
-  if (photo == null) return <></>
+  if (selectedPhoto == null) return <></>
 
   return (
-    <S.Container>
-      <Floater handleClick={handleClose}>
+    <S.Container data-testid='overlay'>
+      <Floater testId='overlay:closeButton' handleClick={handleClose}>
         <CloseIcon />
       </Floater>
-      <S.Image src={photo.download_url} />
-      <S.Author>{photo.author}</S.Author>
+      <S.Image src={selectedPhoto.download_url} />
+      <S.Author>{selectedPhoto.author}</S.Author>
     </S.Container>
   )
 }

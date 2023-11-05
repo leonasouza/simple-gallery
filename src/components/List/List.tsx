@@ -3,9 +3,6 @@ import React, { useCallback } from 'react'
 // SERVICES
 import { useGetPhotosList } from '@services/photos.ts'
 
-// CONTEXTS
-import { useOverlayContext } from '@contexts'
-
 // ASSETS
 import ArrowUp from '@assets/icons/arrow-up.svg?react'
 
@@ -19,7 +16,6 @@ import { Floater } from '@ui'
 export const List = (): JSX.Element => {
   const { data, isLoading, isFetchingNextPage, isError, fetchNextPage } =
     useGetPhotosList()
-  const { selectedPhoto } = useOverlayContext()
 
   const handleNextPage = () => {
     fetchNextPage()
@@ -59,7 +55,7 @@ export const List = (): JSX.Element => {
 
       {isError && <S.Error>Error loading data</S.Error>}
 
-      <Overlay photo={selectedPhoto} />
+      <Overlay />
 
       <S.List>
         {data?.pages.map((page, pageIndex) => (
