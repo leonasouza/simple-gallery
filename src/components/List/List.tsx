@@ -57,7 +57,7 @@ export const List = (): JSX.Element => {
 
       {isLoading && <Shimmers />}
 
-      {isError && 'Error loading data'}
+      {isError && <S.Error>Error loading data</S.Error>}
 
       <Overlay photo={selectedPhoto} />
 

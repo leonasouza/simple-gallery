@@ -6,6 +6,7 @@ import { color, fontSize, spacing } from '@ui/helpers'
 export const Container = styled.div`
   display: flex;
   flex-direction: column;
+  align-items: center;
   margin: 0;
   border: 1px solid ${color('neutral-200')};
   box-shadow: 0px 1px 10px ${color('neutral-300')};

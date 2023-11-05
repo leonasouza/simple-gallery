@@ -14,6 +14,12 @@ export const Title = styled.h2`
   margin: ${spacing('xxl')} auto;
 `
 
+export const Error = styled.p`
+  font-weight: 400;
+  font-size: ${fontSize('regular')};
+  margin: ${spacing('xxl')} auto;
+`
+
 export const ShimmersList = styled.section`
   display: grid;
   grid-template-columns: repeat(2, 1fr);
