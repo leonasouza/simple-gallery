@@ -16,7 +16,7 @@ interface RequestProps {
 }
 
 export const getPhotosList = async ({
-  pageParam = 1,
+  pageParam = 2,
 }: RequestProps): Promise<IPhoto[]> => {
   const { data } = await axios.get(
     `${BASEURL}/v2/list?page=${pageParam}&limit=20`
@@ -33,7 +33,7 @@ export const useGetPhotosList = (): UseInfiniteQueryResult<
   return useInfiniteQuery({
     queryKey: ['GetAllPhotos'],
     queryFn: ({ pageParam }) => getPhotosList({ pageParam }),
-    initialPageParam: 1,
+    initialPageParam: 2,
     getNextPageParam: (_lastPage, allPages) => {
       return allPages.length < PAGES_LIMIT ? allPages.length + 1 : undefined
     },
