@@ -14,7 +14,7 @@ export const Container = styled.div`
 `
 
 export const Image = styled.img`
-  max-width: 100%;
+  width: 100%;
 `
 
 export const Author = styled.p`
