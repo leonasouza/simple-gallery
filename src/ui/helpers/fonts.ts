@@ -9,6 +9,18 @@ const sizes: { [key in SizeValue]: string } = {
   biggest: '40px',
 }
 
+/**
+ * @param value key
+ * @returns css size in pixels
+ * @example key = pixels
+ * mini = 10px
+ * small = 14px
+ * regular = 18px
+ * large = 22px
+ * title = 26px
+ * biggest = 40px
+ */
+
 export const fontSize = (size: SizeValue): string => {
   return sizes[size]
 }
