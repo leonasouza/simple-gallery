@@ -7,6 +7,7 @@ export const Container = styled.header`
   display: flex;
   align-items: flex-end;
   height: 100px;
+  min-width: 230px;
   background-color: ${color('default-200')};
   color: ${color('neutral-700')};
 `
@@ -19,4 +20,5 @@ export const Title = styled.h1`
 
 export const By = styled.p`
   margin: 0 ${spacing('xxs')} ${spacing('xxs')} auto;
+  text-align: right;
 `
