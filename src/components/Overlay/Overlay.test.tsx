@@ -22,8 +22,8 @@ describe('Overlay component', () => {
 
   it('should render List component and open the overlay with an image', async () => {
     render(<List />, { wrapper })
-    expect(await screen.findByText('Alejandro Escamilla')).toBeInTheDocument()
-    const author = screen.getByText('Alejandro Escamilla')
+    const author = await screen.findByText('Alejandro Escamilla')
+    expect(author).toBeInTheDocument()
     fireEvent.click(author)
 
     const overlay = screen.getByTestId('overlay')
@@ -33,9 +33,9 @@ describe('Overlay component', () => {
       'src',
       'https://picsum.photos/id/0/5000/3333'
     )
-    expect(screen.getByTestId('overlay:closeButton')).toBeInTheDocument()
-
     const closeButton = screen.getByTestId('overlay:closeButton')
+    expect(closeButton).toBeInTheDocument()
+
     fireEvent.click(closeButton)
     await waitFor(() => {
       expect(screen.queryByTestId('overlay')).not.toBeInTheDocument()
