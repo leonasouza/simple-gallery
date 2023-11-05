@@ -14,6 +14,7 @@ import { Photo, Overlay } from '@components'
 import { Floater } from '@ui'
 
 export const List = (): JSX.Element => {
+  const THRESHOLD = 2
   const { data, isLoading, isFetchingNextPage, isError, fetchNextPage } =
     useGetPhotosList()
 
@@ -64,7 +65,11 @@ export const List = (): JSX.Element => {
               <Photo
                 key={photo.id}
                 photo={photo}
-                ref={photoIndex === page.length - 4 ? triggerRef : undefined}
+                ref={
+                  photoIndex === page.length - THRESHOLD
+                    ? triggerRef
+                    : undefined
+                }
               />
             ))}
           </React.Fragment>

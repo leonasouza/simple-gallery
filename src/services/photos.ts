@@ -35,7 +35,7 @@ export const useGetPhotosList = (): UseInfiniteQueryResult<
     queryFn: ({ pageParam }) => getPhotosList({ pageParam }),
     initialPageParam: 2,
     getNextPageParam: (_lastPage, allPages) => {
-      return allPages.length < PAGES_LIMIT ? allPages.length + 1 : undefined
+      return allPages.length < PAGES_LIMIT ? allPages.length + 2 : undefined
     },
     refetchOnWindowFocus: false,
   })
