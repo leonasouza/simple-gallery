@@ -3,7 +3,7 @@
 https://simple-gallery-phi.vercel.app/
 
 Front-end com testes consumindo uma api aberta (https://picsum.photos/).<br/>
-Projeto pessoal em construção. Veja os próximos passos [aqui](https://github.com/leonasouza/simple-gallery/issues).
+~~Projeto pessoal em construção. Veja os próximos passos [aqui](https://github.com/leonasouza/simple-gallery/issues).~~
 
 ## Ferramentas
 
