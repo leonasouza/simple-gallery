@@ -21,3 +21,4 @@ Projeto pessoal em construção. Veja os próximos passos [aqui](https://github.
 - No terminal digite `npm i`
 - Para executar o projeto digite `npm run dev`
 - Para executar os testes digite `npm run test`
+- Para executar os testes com mais detalhes digite `npm run test-verbose`
