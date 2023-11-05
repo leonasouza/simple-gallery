@@ -3,11 +3,15 @@ import React, { useCallback } from 'react'
 // SERVICES
 import { useGetPhotosList } from '@services/photos.ts'
 
+// ASSETS
+import ArrowUp from '@assets/icons/arrow-up.svg?react'
+
 // STYLES
 import * as S from './List.styles.ts'
 
 // COMPONENTS
-import { Photo } from '@components'
+import { Photo, Overlay } from '@components'
+import { Floater } from '@ui'
 
 export const List = (): JSX.Element => {
   const { data, isLoading, isFetchingNextPage, isError, fetchNextPage } =
@@ -15,6 +19,10 @@ export const List = (): JSX.Element => {
 
   const handleNextPage = () => {
     fetchNextPage()
+  }
+
+  const handleScrollToTop = () => {
+    window.scrollTo(0, 0)
   }
 
   const triggerRef = useCallback((trigger: HTMLDivElement) => {
@@ -45,7 +53,9 @@ export const List = (): JSX.Element => {
 
       {isLoading && <Shimmers />}
 
-      {isError && 'Error loading data'}
+      {isError && <S.Error>Error loading data</S.Error>}
+
+      <Overlay />
 
       <S.List>
         {data?.pages.map((page, pageIndex) => (
@@ -59,6 +69,9 @@ export const List = (): JSX.Element => {
             ))}
           </React.Fragment>
         ))}
+        <Floater handleClick={handleScrollToTop} position='bottom'>
+          <ArrowUp />
+        </Floater>
       </S.List>
 
       {isFetchingNextPage && <Shimmers />}
