@@ -21,4 +21,9 @@ export const Title = styled.h1`
 export const By = styled.p`
   margin: 0 ${spacing('xxs')} ${spacing('xxs')} auto;
   text-align: right;
+  white-space: nowrap;
+
+  a {
+    white-space: nowrap;
+  }
 `
