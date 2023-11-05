@@ -13,6 +13,10 @@ export const Title = styled.h2`
   font-size: ${fontSize('regular')};
   text-align: center;
   margin: ${spacing('xxl')} auto;
+
+  @media (max-width: 1000px) {
+    margin: ${spacing('xxl')} ${spacing('xxxs')};
+  }
 `
 
 export const Error = styled.p`
@@ -26,7 +30,7 @@ export const CommonListStyles = css`
   grid-template-columns: repeat(2, 1fr);
   gap: ${spacing('giga')};
 
-  @media (max-width: 1100px) {
+  @media (max-width: 1000px) {
     grid-template-columns: 1fr;
     margin: 0 ${spacing('xxxs')};
   }
