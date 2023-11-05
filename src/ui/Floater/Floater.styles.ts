@@ -5,7 +5,7 @@ import { color, spacing } from '@ui/helpers'
 import { FloaterPosition } from '@ui/Floater'
 
 type ContainerProps = {
-  position: FloaterPosition
+  $position: FloaterPosition
 }
 
 export const Container = styled.div<ContainerProps>`
@@ -15,10 +15,11 @@ export const Container = styled.div<ContainerProps>`
   align-items: center;
   width: ${spacing('huge')};
   height: ${spacing('huge')};
-  top: ${({ position }) => (position === 'top' ? spacing('md') : 'auto')};
-  bottom: ${({ position }) => (position === 'bottom' ? spacing('md') : 'auto')};
+  top: ${({ $position }) => ($position === 'top' ? spacing('md') : 'auto')};
+  bottom: ${({ $position }) =>
+    $position === 'bottom' ? spacing('md') : 'auto'};
   right: ${spacing('md')};
-  background-color: ${color('default-400')};
+  background-color: ${color('default-200')};
   border-radius: ${spacing('giga')};
   cursor: pointer;
 

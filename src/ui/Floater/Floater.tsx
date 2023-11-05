@@ -18,7 +18,7 @@ export const Floater = ({
 }: Props) => {
   return (
     <S.Container
-      position={position}
+      $position={position}
       onClick={() => handleClick()}
       data-testid={testId || ''}
     >
