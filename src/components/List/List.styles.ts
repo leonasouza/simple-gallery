@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 
 // HELPERS
 import { fontSize, spacing } from '@ui/helpers'
@@ -11,6 +11,7 @@ export const Container = styled.main`
 export const Title = styled.h2`
   font-weight: 300;
   font-size: ${fontSize('regular')};
+  text-align: center;
   margin: ${spacing('xxl')} auto;
 `
 
@@ -20,19 +21,26 @@ export const Error = styled.p`
   margin: ${spacing('xxl')} auto;
 `
 
-export const ShimmersList = styled.section`
+export const CommonListStyles = css`
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: ${spacing('giga')};
+
+  @media (max-width: 1100px) {
+    grid-template-columns: 1fr;
+    margin: 0 ${spacing('xxxs')};
+  }
+`
+
+export const ShimmersList = styled.section`
+  ${CommonListStyles};
   margin: ${spacing('xs')} 0;
   padding-bottom: ${spacing('md')};
 `
 
 export const List = styled.section`
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  ${CommonListStyles};
   align-items: center;
-  gap: ${spacing('giga')};
 `
 
 export const Scroll = styled.div`

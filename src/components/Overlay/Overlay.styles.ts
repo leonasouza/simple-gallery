@@ -13,8 +13,12 @@ export const Container = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background-color: ${color('neutral-300')};
+  background-color: ${color('default-300')};
   z-index: 2;
+
+  @media (max-width: 850px) {
+    padding-top: ${spacing('giga')};
+  }
 `
 
 export const Image = styled.img`
